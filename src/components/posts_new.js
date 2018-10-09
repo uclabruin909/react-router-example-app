@@ -11,6 +11,7 @@ class PostsNews extends Component {
                     className="form-control"
                     {...field.input}
                 />
+                {field.meta.error}
             </div>
         );
     }
@@ -24,8 +25,8 @@ class PostsNews extends Component {
                     component={this.renderField}
                 />
                 <Field
-                    label="Tags"
-                    name="tags"
+                    label="Categories"
+                    name="categories"
                     component={this.renderField}
                 />   
                 <Field
@@ -38,6 +39,25 @@ class PostsNews extends Component {
     }
 }
 
+//if errors is empty, validatation success.  if it has any props, redux-form assumes invalid
+function validate(values) {
+    const errors = {};
+
+    //validate inputs from 'values'
+    if (!values.title) {
+        errors.title= "Enter a title";
+    }
+    if (!values.categories) {
+        errors.categories= "Enter some categories";
+    }
+    if (!values.content) {
+        errors.content= "Enter some content";
+    }
+
+    return errors;
+}
+
 export default reduxForm({
+    validate: validate,
     form: 'PostsNewForm'
 })(PostsNews);
