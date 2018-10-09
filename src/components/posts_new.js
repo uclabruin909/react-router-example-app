@@ -22,7 +22,10 @@ class PostsNews extends Component {
     }
 
     onSubmit(values) {
-        this.props.createPost(values);
+        this.props.createPost(values, () => {
+            //redirect back to index on successful post creation
+            this.props.history.push('/');
+        });
     }
 
     render() {
